@@ -29,7 +29,7 @@ postgresql:
 
 defaultAirflowRepository: ghostwood/airflow
 defaultAirflowTag: "2.0.3"
-airflowVersion: "2.10.3"
+airflowVersion: "2.11.0"
 
 config:
   core:
@@ -50,29 +50,38 @@ config:
     remoteBaseLogFolder: s3a://airflow-logs
     encryptS3Logs: false
 
-uid: 5000
-gid: 0
-
 dags:
   persistence:
     enabled: true
-    existingClaim: pvc-airflow-shared
-    subPath: "dags"
-    size: 2Gi
+    accessMode: ReadWriteMany
+    storageClassName: "filestore-rwx"
+    size: 10Gi
 
 logs:
   persistence:
     enabled: true
-    existingClaim: pvc-airflow-shared
-    subPath: "logs"
-    size: 2Gi
+    existingClaim: ""
+
+extraVolumes:
+  - name: airflow-shared
+    persistentVolumeClaim:
+      claimName: ~
+
+extraVolumeMounts:
+  - name: airflow-shared
+    mountPath: /opt/airflow/dags
+    subPath: dags
+
+  - name: airflow-shared
+    mountPath: /opt/airflow/logs
+    subPath: logs
 
 scheduler:
   replicas: 1
   resources:
     requests:
       cpu: "300m"
-      memory: "512Mi"
+      memory: "1Gi"
 
 worker:
   persistence:
