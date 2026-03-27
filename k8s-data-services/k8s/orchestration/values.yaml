@@ -7,11 +7,6 @@ serviceAccount:
   create: true
   name: airflow-worker
 
-cleanup:
-  enabled: true
-  schedule: "0 0 * * *" # Hàng ngày vào lúc nửa đêm
-  retentionMinutes: 129600 # 90 days
-
 data:
   metadataConnection:
     user: postgres
@@ -64,15 +59,13 @@ dags:
     enabled: true
     existingClaim: pvc-airflow-shared
     subPath: "dags"
-    accessMode: ReadWriteMany
     size: 2Gi
 
 logs:
   persistence:
     enabled: true
     existingClaim: pvc-airflow-shared
-    subPath: "logs"
-    accessMode: ReadWriteMany   
+    subPath: "logs" 
     size: 2Gi
 
 scheduler:
