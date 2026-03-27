@@ -27,10 +27,9 @@ postgresql:
       existingClaim: pvc-airflow-postgres
       size: 8Gi
 
-defaultAirflowRepository: apache/airflow
-defaultAirflowTag: "2.11.0"
-defaultAirflowDigest: ~
-airflowVersion: "2.11.0"
+defaultAirflowRepository: ghostwood/airflow
+defaultAirflowTag: "2.0.3"
+airflowVersion: "2.10.3"
 
 config:
   core:
@@ -65,16 +64,16 @@ logs:
   persistence:
     enabled: true
     existingClaim: pvc-airflow-shared
-    subPath: "logs" 
+    subPath: "logs"
     size: 2Gi
 
 scheduler:
   replicas: 1
   resources:
     requests:
-      cpu: "1"
-      memory: "2Gi"
-      
+      cpu: "300m"
+      memory: "512Mi"
+
 worker:
   persistence:
     enabled: false
