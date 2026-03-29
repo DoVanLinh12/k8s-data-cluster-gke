@@ -50,16 +50,14 @@ config:
 dags:
   persistence:
     enabled: true
-    accessMode: ReadWriteMany
     storageClassName: "filestore-rwx"
-    size: 5Gi
+    size: 10Gi
 
 logs:
   persistence:
     enabled: true
-    accessMode: ReadWriteMany
     storageClassName: filestore-rwx
-    size: 5Gi
+    size: 10Gi
 
 scheduler:
   replicas: 1
