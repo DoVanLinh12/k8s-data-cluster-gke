@@ -45,10 +45,7 @@ config:
     deleteWorkerPods: "True"
 
   logging:
-    remoteLogging: true
-    remoteLogConnId: minio_conn
-    remoteBaseLogFolder: s3a://airflow-logs
-    encryptS3Logs: false
+    remoteLogging: false
 
 dags:
   persistence:
