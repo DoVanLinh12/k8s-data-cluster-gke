@@ -55,26 +55,14 @@ dags:
     enabled: true
     accessMode: ReadWriteMany
     storageClassName: "filestore-rwx"
-    size: 10Gi
+    size: 5Gi
 
 logs:
   persistence:
     enabled: true
-    existingClaim: ""
-
-extraVolumes:
-  - name: airflow-shared
-    persistentVolumeClaim:
-      claimName: ~
-
-extraVolumeMounts:
-  - name: airflow-shared
-    mountPath: /opt/airflow/dags
-    subPath: dags
-
-  - name: airflow-shared
-    mountPath: /opt/airflow/logs
-    subPath: logs
+    accessMode: ReadWriteMany
+    storageClassName: filestore-rwx
+    size: 5Gi
 
 scheduler:
   replicas: 1
